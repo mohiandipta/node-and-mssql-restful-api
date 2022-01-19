@@ -1,38 +1,32 @@
 const express = require('express')
 const app = express()
-const bodyParser = require('body-parser')
-const { Int } = require('mssql')
+const bodyParser = require('body-parser');
+const { status } = require('express/lib/response');
+const router = express.Router()
 
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*")
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-//     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-//     next();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+// router.post(`/test`, (req, res) => {
+//     username = req.body.username
+//     age = req.body.age
+//     console.log(
+//         username,
+//         age)
+//     res.send()
 // })
-
-let user = {
-    name: "batman",
-    age: "30",
-    email: "batman@robin.com"
-}
+// app.use(`/`, router)
 
 
-app.get(`/user`, (req, res) => {
-    res.send(user)
-})
 
-let userInfo = {
-    email: '',
-    age: ''
-}
+// routes
+const profile = require('./controller/profile')
 
-app.post(`/userInfo`, (req, res) => {
-    const { email, age } = req.body
+app.use(`/test`, profile)
 
-})
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-// const ProfileData = require('./controller/profile')
 
 // app.use('/', ProfileData)
 app.listen(8000, () => {
